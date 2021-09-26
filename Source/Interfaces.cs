@@ -21,14 +21,11 @@ namespace RX
 
     public interface IObserver<in T>
     {
+        bool SkipLatestOnSubscribe { get; }
+        int Priority { get; }
+
         Task OnNext(T value);
         Task OnError(Exception e);
         Task OnCompleted();
-    }
-
-    public interface IRXObserver<in T> : IObserver<T>
-    {
-        bool SkipLatestOnSubscribe { get; }
-        int Priority { get; }
     }
 }

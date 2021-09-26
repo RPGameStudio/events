@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace RX
 {
-    internal class DefaultObserver<T> : IRXObserver<T>
+    internal class DefaultObserver<T> : IObserver<T>
     {
         public Func<T, Task> OnNext;
         public Func<Exception, Task> OnError;

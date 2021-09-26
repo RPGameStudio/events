@@ -9,6 +9,9 @@ namespace RX
         private IObservable<T> _observable;
         private IObserver<T> _observer;
 
+        public bool SkipLatestOnSubscribe => _observer.SkipLatestOnSubscribe;
+        public int Priority => _observer.Priority;
+
         public WhereObservable(IObservable<T> observable, Predicate<T> predicate)
         {
             _observable = observable;
@@ -19,13 +22,14 @@ namespace RX
         public IDisposable Subscribe(IObserver<T> observer)
         {
             _observer = observer;
-            _observable.Subscribe(this);
+            var subscribtion = _observable.Subscribe(this);
 
             return new DisposeToken
             {
                 DisposeAction = async () =>
                 {
                     await observer.OnCompleted();
+                    subscribtion.Dispose();
                 }
             };
         }

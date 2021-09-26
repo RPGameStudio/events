@@ -16,16 +16,20 @@ namespace RX
             _observer = null;
         }
 
+        public bool SkipLatestOnSubscribe => _observer.SkipLatestOnSubscribe;
+        public int Priority => _observer.Priority;
+
         public IDisposable Subscribe(IObserver<TR> observer)
         {
             _observer = observer;
-            _observable.Subscribe(this);
+            var subscribtion = _observable.Subscribe(this);
 
             return new DisposeToken
             {
                 DisposeAction = async () =>
                 {
                     await observer.OnCompleted();
+                    subscribtion.Dispose();
                 }
             };
         }

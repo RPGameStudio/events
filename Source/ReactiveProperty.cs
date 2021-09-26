@@ -30,32 +30,25 @@ namespace RX
 
         public IDisposable Subscribe(IObserver<T> observer)
         {
-            if (observer is IRXObserver<T> rxObserver)
+            if (!_observers.ContainsKey(observer.Priority))
             {
-                if (!_observers.ContainsKey(rxObserver.Priority))
-                {
-                    _observers.Add(rxObserver.Priority, new LinkedList<IObserver<T>>());
-                }
-
-                var observers = _observers;
-                _observers[rxObserver.Priority].AddLast(observer);
-
-                if (!rxObserver.SkipLatestOnSubscribe)
-                    observer.OnNext(_value);
-
-                return new DisposeToken
-                {
-                    DisposeAction = async () =>
-                    {
-                        observers[rxObserver.Priority].Remove(observer);
-                        await observer.OnCompleted();
-                    },
-                };
+                _observers.Add(observer.Priority, new LinkedList<IObserver<T>>());
             }
-            else
+
+            var observers = _observers;
+            _observers[observer.Priority].AddLast(observer);
+
+            if (!observer.SkipLatestOnSubscribe)
+                observer.OnNext(_value);
+
+            return new DisposeToken
             {
-                throw new InvalidOperationException();
-            }
+                DisposeAction = async () =>
+                {
+                    observers[observer.Priority].Remove(observer);
+                    await observer.OnCompleted();
+                },
+            };
         }
 
         private async Task NotifyValueChanged(T value)
