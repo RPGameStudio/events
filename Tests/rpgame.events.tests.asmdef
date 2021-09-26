@@ -1,0 +1,22 @@
+{
+    "name": "rpgame.events.tests",
+    "rootNamespace": "",
+    "references": [
+        "GUID:3c4afd5020beb429fb2501330e436953"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "FluentAssertions.dll",
+        "NSubstitute.dll",
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": true
+}
