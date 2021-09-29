@@ -7,7 +7,7 @@ namespace RX
     [Serializable]
     public class ReactiveProperty<T> : IObservable<T>, IReactivePreoperty<T>
     {
-        private T _value;
+        private T _value = default;
         [NonSerialized] private SortedDictionary<int, LinkedList<IObserver<T>>> _observers;
 
         public T Value
@@ -20,12 +20,7 @@ namespace RX
             }
         }
 
-
-        public ReactiveProperty()
-        {
-            _value = default;
-            _observers = new SortedDictionary<int, LinkedList<IObserver<T>>>();
-        }
+        public ReactiveProperty() => _observers = new SortedDictionary<int, LinkedList<IObserver<T>>>();
         public ReactiveProperty(T value) : this() => _value = value;
 
         public IDisposable Subscribe(IObserver<T> observer)

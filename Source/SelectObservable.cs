@@ -1,41 +1,18 @@
 ﻿using System;
+using System.Collections;
 using System.Threading.Tasks;
 
 namespace RX
 {
-    internal class SelectObservable<T, TR> : IObservable<TR>, IObserver<T>
+    internal class SelectObservable<TSource, TResult> : ObservableExpression<TSource, TResult>
     {
-        private Func<T, TR> _selector;
-        private IObservable<T> _observable;
-        private IObserver<TR> _observer;
+        private Func<TSource, TResult> _selector;
 
-        public SelectObservable(IObservable<T> observable, Func<T, TR> selector)
+        public SelectObservable(IObservable<TSource> observable, Func<TSource, TResult> selector) : base(observable)
         {
             _selector = selector;
-            _observable = observable;
-            _observer = null;
         }
 
-        public bool SkipLatestOnSubscribe => _observer.SkipLatestOnSubscribe;
-        public int Priority => _observer.Priority;
-
-        public IDisposable Subscribe(IObserver<TR> observer)
-        {
-            _observer = observer;
-            var subscribtion = _observable.Subscribe(this);
-
-            return new DisposeToken
-            {
-                DisposeAction = async () =>
-                {
-                    await observer.OnCompleted();
-                    subscribtion.Dispose();
-                }
-            };
-        }
-
-        async Task IObserver<T>.OnCompleted() => await _observer.OnCompleted();
-        async Task IObserver<T>.OnError(Exception exception) => await _observer.OnError(exception);
-        async Task IObserver<T>.OnNext(T next) => await _observer.OnNext(_selector.Invoke(next));
+        public override async Task OnNext(TSource value) => await _observer.OnNext(_selector.Invoke(value));
     }
 }
