@@ -23,11 +23,7 @@ namespace RX
 
             return new DisposeToken
             {
-                DisposeAction = async () =>
-                {
-                    await observer.OnCompleted();
-                    subscribtion.Dispose();
-                }
+                DisposeAction = async () => subscribtion.Dispose()
             };
         }
 

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace RX
 {
     [Serializable]
-    public class ReactiveProperty<T> : IObservable<T>, IReactivePreoperty<T>
+    public class ReactiveProperty<T> : IObservable<T>, IReactiveProperty<T>
     {
         private T _value = default;
         [NonSerialized] private SortedDictionary<int, LinkedList<IObserver<T>>> _observers;

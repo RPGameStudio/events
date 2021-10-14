@@ -9,7 +9,7 @@ namespace RX
         T Value { get; }
     }
 
-    public interface IReactivePreoperty<T> : IReadonlyReactiveProperty<T>
+    public interface IReactiveProperty<T> : IReadonlyReactiveProperty<T>
     {
         new T Value { get; set; }
     }
