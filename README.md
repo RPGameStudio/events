@@ -34,7 +34,7 @@ private class CCharpEventsExample : MonoBehaviour
   private void OnDestroy()
   {
       //in case user forgot to unsubscribe - memory leak
-      //user should implement onDesotroy in every class this any subscribtion
+      //user should implement onDesotroy in every class with any subscribtion
       _storage.OnDataChanged -= OnDataChangedCallback;
   }
 
