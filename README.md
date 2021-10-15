@@ -13,7 +13,7 @@ Differences from UniRx:
 
 Why just not use C# or UnityEvents?
 1) More clever syntax
-2) Less chance to catch a memory leak
+2) Smaller chance to face a memory leak
 
 That's how it looks with c# events:
 ```
