@@ -69,8 +69,12 @@ That's how it looks with this package:
             storage.Data.Value = 99;
             //storage.ReadonlyData.Value = 99; //error
 
-            var sub1 = storage.ReadonlyData.Where(x => x >= 100).Subscribe(async x => Debug.Log($"first subscribtion {x}"), async () => Debug.Log("1st disposed"), null, false, 1);
-            var sub2 = storage.ReadonlyData.Where(x => x >= 150).Subscribe(async x => Debug.Log($"second subscribtion {x}"), async () => Debug.Log("2nd disposed"), null, true, 2);
+            var sub1 = storage.ReadonlyData
+                    .Where(x => x >= 100)
+                    .Subscribe(async x => Debug.Log($"first subscribtion {x}"), async () => Debug.Log("1st disposed"), null, false, 1);
+            var sub2 = storage.ReadonlyData
+                    .Where(x => x >= 150)
+                    .Subscribe(async x => Debug.Log($"second subscribtion {x}"), async () => Debug.Log("2nd disposed"), null, true, 2);
 
             //no output
             a.Data.Value = 98;
