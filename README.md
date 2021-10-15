@@ -9,7 +9,7 @@ Supported expressions:
 Differences from UniRx:
 1) User can manually set subscribtion priority. All observers will be notified in adjusted priority (in case priority is similar - in subscribtion order)
 2) Async/await support
-3) Not overloaded with redundant functionality
+3) No redundant functionality
 
 Why just not use C# or UnityEvents?
 1) More clever syntax
