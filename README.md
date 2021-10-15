@@ -54,7 +54,7 @@ That's how it looks with this package:
     {
         private ReactiveProperty<float> _data; //can be serialized
 
-        public IReadonlyReactiveProperty<float> ReadonlyData => _data; //supports incapsulation
+        public IReadonlyReactiveProperty<float> ReadonlyData => _data; //supports encapsulation
         public ReactiveProperty<float> Data => _data; //in general case user shuldn't be able to modify data state in public. Used for example
 
         public DataStorage(float value) => _data = new ReactiveProperty<float>(value);
