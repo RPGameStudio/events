@@ -71,10 +71,18 @@ That's how it looks with this package:
 
             var sub1 = storage.ReadonlyData
                     .Where(x => x >= 100)
-                    .Subscribe(async x => Debug.Log($"first subscribtion {x}"), async () => Debug.Log("1st disposed"), null, false, 1);
+                    .Subscribe(onNext: async x => Debug.Log($"first subscribtion {x}"), 
+                               onCompleted: async () => Debug.Log("1st disposed"), //optional param
+                               onError: null,                                      //optional param
+                               skipLatestValueOnSubscribe: false,                  //optional param
+                               priority: 1);                                       //optional param
             var sub2 = storage.ReadonlyData
                     .Where(x => x >= 150)
-                    .Subscribe(async x => Debug.Log($"second subscribtion {x}"), async () => Debug.Log("2nd disposed"), null, true, 2);
+                    .Subscribe(onNext: async x => Debug.Log($"second subscribtion {x}"), 
+                               onCompleted: async () => Debug.Log("2nd disposed"), //optional param
+                               onError: null,                                      //optional param
+                               skipLatestValueOnSubscribe: true,                   //optional param
+                               prioirty: 2);                                       //optional param
 
             //no output
             a.Data.Value = 98;
