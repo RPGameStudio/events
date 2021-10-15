@@ -79,7 +79,7 @@ That's how it looks with this package:
             //first then second
             a.Data.Value = 151;
 
-            //auto dispose with add to method
+            //auto dispose implemented by AddTo method
             sub1.AddTo(this);
             Destroy(gameObject);
             
